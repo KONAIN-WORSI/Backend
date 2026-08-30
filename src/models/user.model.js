@@ -42,7 +42,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, "Password is required"]
     },
-    refereshTokens: {
+    refreshTokens: {
         type: String
     }
 
@@ -72,7 +72,7 @@ userSchema.methods.generateAccessToken = function(){
        }
     )
 }
-userSchema.methods.generateRefereshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
       return jwt.sign(
        {
          _id: this._id, 
