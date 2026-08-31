@@ -177,7 +177,7 @@ const logOutUser = asyncHandler( async (req, res) => {
 
 })
 
-const refreshAcessToken = asyncHandler( async (req, res) => {
+const refreshAccessToken = asyncHandler( async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
 
     if(!incomingRefreshToken) {
@@ -215,4 +215,4 @@ const refreshAcessToken = asyncHandler( async (req, res) => {
     )
 })
 
-export {registerUser, loginUser, logOutUser, refreshAcessToken}
+export {registerUser, loginUser, logOutUser, refreshAccessToken}
