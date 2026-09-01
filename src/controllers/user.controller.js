@@ -5,6 +5,7 @@ import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
 import { removeImagesFromCloudinary } from "../utils/removeCloudinaryImage.js"
+import mongoose from "mongoose"
 
 
 const generateAccessAndRefreshToken = async (userId) => {
@@ -154,8 +155,8 @@ const logOutUser = asyncHandler( async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: {
-                refreshToken: undefined
+            $unset: {
+                refreshToken: 1 // this removes the refreshToken field from the user document in the database
             }
         },
         {
@@ -187,7 +188,7 @@ const refreshAccessToken = asyncHandler( async (req, res) => {
 
     const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET)
 
-    const user = User.findById(decodedToken?._id)
+    const user = await User.findById(decodedToken?._id)
 
     if(!user){
         throw new ApiError(401, "Invalid refresh token")
@@ -247,7 +248,7 @@ const updateAccountDetails = asyncHandler( async (req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
-    const user = User.findByIdAndUpdate(req.user?._id, 
+    const user = await User.findByIdAndUpdate(req.user?._id, 
         {
             $set: {
                 fullName: fullName,
