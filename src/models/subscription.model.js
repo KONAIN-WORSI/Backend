@@ -13,4 +13,7 @@ const subscriptionSchema = new Schema({
 
 }, {timestamps: true})
 
+// A user can subscribe to a channel only once.
+subscriptionSchema.index({subscriber: 1, channel: 1}, {unique: true})
+
 export const Subscription = mongoose.model("Subscription", subscriptionSchema)
