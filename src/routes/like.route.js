@@ -11,7 +11,7 @@ const likeRouter = Router();
 likeRouter.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
 
 likeRouter.route("/toggle/v/:videoId").post(toggleVideoLike);
-likeRouter.route("/toggle/c/:commentId").post(toggleCommentLike); // testing for comment like toggle is left, after the completion of comment feature 
+likeRouter.route("/toggle/c/:commentId").post(toggleCommentLike); 
 likeRouter.route("/toggle/t/:tweetId").post(toggleTweetLike);
 likeRouter.route("/videos").get(getLikedVideos);
 
